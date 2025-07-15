@@ -1,6 +1,5 @@
 .DS_Store
 __pycache__/
 results
-configs/kimi_config.yaml
-configs/oai_config.yaml
-configs/deepseek_config.yaml
+kissing_number/
+alpha_research_env/
