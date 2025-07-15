@@ -78,9 +78,6 @@ Please write a paragraph of proposal for the idea focusing on the following poin
         # Verify result
         print(result)
         assert 1==2
-        # Verify that API was called correctly
-        mock_client.chat.completions.create.assert_called_once()
-        call_args = mock_client.chat.completions.create.call_args[1]
         
         # Check that system message was added
         expected_messages = [{"role": "system", "content": system_message}] + messages

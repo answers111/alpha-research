@@ -9,6 +9,7 @@ from typing import Any, Dict, List, Optional, Union
 
 import openai
 from openai import AsyncOpenAI
+from openai import AsyncAzureOpenAI
 
 from evolve_agent.config import LLMConfig
 from evolve_agent.llm.base import LLMInterface
@@ -38,6 +39,11 @@ class OpenAILLM(LLMInterface):
             api_key=self.api_key,
             base_url=self.api_base,
         )
+        # self.client = AsyncOpenAI(
+        #     api_key=self.api_key,
+        #     azure_endpoint=self.api_base,
+        #     api_version="2024-12-01-preview",
+        # )
 
         logger.info(f"Initialized OpenAI LLM with model: {self.model}")
 

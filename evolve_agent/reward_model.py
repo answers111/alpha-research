@@ -6,7 +6,7 @@ from typing import List, Dict, Optional, Any
 from pathlib import Path
 
 import asyncio
-import aiofiles
+# import aiofiles
 import numpy as np
 import pandas as pd
 from vllm import LLM, SamplingParams
@@ -84,15 +84,15 @@ Write the score in the {BOX}.
             set: Set of processed abstract titles with valid scores.
         """
         processed_ids = set()
-        if os.path.exists(self.config.jsonl_file):
-            async with aiofiles.open(self.config.jsonl_file, 'r', encoding='utf-8') as f:
-                async for line in f:
-                    try:
-                        data = json.loads(line.strip())
-                        if data.get('score', -1.0) != -1.0:
-                            processed_ids.add(data['title'])
-                    except json.JSONDecodeError:
-                        print(f"Warning: Skipping invalid JSON line in {self.config.jsonl_file}")
+        # if os.path.exists(self.config.jsonl_file):
+        #     async with aiofiles.open(self.config.jsonl_file, 'r', encoding='utf-8') as f:
+        #         async for line in f:
+        #             try:
+        #                 data = json.loads(line.strip())
+        #                 if data.get('score', -1.0) != -1.0:
+        #                     processed_ids.add(data['title'])
+        #             except json.JSONDecodeError:
+        #                 print(f"Warning: Skipping invalid JSON line in {self.config.jsonl_file}")
         return processed_ids
 
     async def write_result_to_jsonl(self, result: Dict):
@@ -102,9 +102,9 @@ Write the score in the {BOX}.
         Args:
             result (Dict): Result dictionary containing title, score, evaluation, abstract, and gt_score.
         """
-        if result['score'] != -1.0:
-            async with aiofiles.open(self.config.jsonl_file, 'a', encoding='utf-8') as f:
-                await f.write(json.dumps(result, ensure_ascii=False) + '\n')
+        # if result['score'] != -1.0:
+        #     async with aiofiles.open(self.config.jsonl_file, 'a', encoding='utf-8') as f:
+        #         await f.write(json.dumps(result, ensure_ascii=False) + '\n')
 
     async def score_with_vllm(self, data: List[Dict]) -> List[Dict]:
         """
@@ -215,15 +215,15 @@ Write the score in the {BOX}.
                 print(f"Failed to get valid score for abstract: {item['title']} after {self.config.max_retries} retries")
 
         # Include previously processed results
-        if processed_ids:
-            async with aiofiles.open(self.config.jsonl_file, 'r', encoding='utf-8') as f:
-                async for line in f:
-                    try:
-                        result = json.loads(line.strip())
-                        if result['title'] in processed_ids:
-                            results.append(result)
-                    except json.JSONDecodeError:
-                        print(f"Warning: Skipping invalid JSON line in {self.config.jsonl_file}")
+        # if processed_ids:
+        #     async with aiofiles.open(self.config.jsonl_file, 'r', encoding='utf-8') as f:
+        #         async for line in f:
+        #             try:
+        #                 result = json.loads(line.strip())
+        #                 if result['title'] in processed_ids:
+        #                     results.append(result)
+        #             except json.JSONDecodeError:
+        #                 print(f"Warning: Skipping invalid JSON line in {self.config.jsonl_file}")
 
         return results
 

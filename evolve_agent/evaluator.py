@@ -207,7 +207,7 @@ class Evaluator:
                         "error_type": "timeout",
                     }
 
-                return {"error": 0.0, "timeout": True}
+                return {"error": -1.0, "timeout": True}
 
             except Exception as e:
                 last_exception = e
@@ -238,7 +238,7 @@ class Evaluator:
         logger.error(
             f"All evaluation attempts failed for program{program_id_str}. Last error: {str(last_exception)}"
         )
-        return {"error": 0.0}
+        return {"error": -1.0}
 
     def _process_evaluation_result(self, result: Any) -> EvaluationResult:
         """
@@ -259,7 +259,7 @@ class Evaluator:
         else:
             # Error case - return error metrics
             logger.warning(f"Unexpected evaluation result type: {type(result)}")
-            return EvaluationResult(metrics={"error": 0.0})
+            return EvaluationResult(metrics={"error": -1.0})
 
     def get_pending_artifacts(self, program_id: str) -> Optional[Dict[str, Union[str, bytes]]]:
         """
@@ -299,7 +299,7 @@ class Evaluator:
         # Validate result
         if not isinstance(result, dict):
             logger.warning(f"Evaluation returned non-dictionary result: {result}")
-            return {"error": 0.0}
+            return {"error": -1.0}
 
         return result
 
@@ -345,7 +345,7 @@ class Evaluator:
             except asyncio.TimeoutError:
                 logger.warning(f"Stage 1 evaluation timed out after {self.config.timeout}s")
                 return EvaluationResult(
-                    metrics={"stage1_passed": 0.0, "error": 0.0, "timeout": True},
+                    metrics={"stage1_passed": -1.0, "error": -1.0, "timeout": True},
                     artifacts={
                         "failure_stage": "stage1",
                         "timeout": True,
@@ -355,7 +355,7 @@ class Evaluator:
                 logger.error(f"Error in stage 1 evaluation: {str(e)}")
                 # Capture stage 1 failure as artifacts
                 return EvaluationResult(
-                    metrics={"stage1_passed": 0.0, "error": 0.0},
+                    metrics={"stage1_passed": -1.0, "error": -1.0},
                     artifacts={
                         "stderr": str(e),
                         "traceback": traceback.format_exc(),
@@ -482,7 +482,7 @@ class Evaluator:
             logger.error(f"Error in cascade evaluation: {str(e)}")
             # Return proper cascade failure result instead of re-raising
             return EvaluationResult(
-                metrics={"stage1_passed": 0.0, "error": 0.0},
+                metrics={"stage1_passed": -1.0, "error": -1.0},
                 artifacts={
                     "stderr": str(e),
                     "traceback": traceback.format_exc(),

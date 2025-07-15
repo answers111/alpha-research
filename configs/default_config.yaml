@@ -12,7 +12,7 @@ random_seed: null                     # Random seed for reproducibility (null = 
 # Evolution settings
 diff_based_evolution: true            # Use diff-based evolution (true) or full rewrites (false)
 allow_full_rewrites: false            # Allow occasional full rewrites even in diff-based mode
-max_code_length: 10000                # Maximum allowed code length in characters
+max_code_length: 100000                # Maximum allowed code length in characters
 
 # LLM configuration
 llm:
@@ -39,7 +39,7 @@ llm:
   # Generation parameters
   temperature: 0.7                    # Temperature for generation (higher = more creative)
   top_p: 0.95                         # Top-p sampling parameter
-  max_tokens: 4096                    # Maximum tokens to generate
+  max_tokens: 8192                    # Maximum tokens to generate
 
   # Request parameters
   timeout: 300                        # Timeout for API requests in seconds
@@ -105,7 +105,7 @@ evaluator:
   # Note: resource limits (memory_limit_mb, cpu_limit) are not yet implemented
 
   # Evaluation strategies
-  cascade_evaluation: true            # Use cascade evaluation to filter bad solutions early
+  cascade_evaluation: false            # Use cascade evaluation to filter bad solutions early
   cascade_thresholds:                 # Thresholds for advancing to next evaluation stage
     - 0.5                             # First stage threshold
     - 0.75                            # Second stage threshold
@@ -121,14 +121,14 @@ evaluator:
 
 # Reward model configuration
 rewardmodel:
-  model_type: api                  # Model type (vllm or api)
-  model_name: deepseek-chat                    # Model name (if null, uses default)
+  model_type: vllm                  # Model type (vllm or api)
+  model_name: /data/zhuotaodeng/yzj/alpha_research_model/qwen25_grm_iclr_boxed/checkpoint-180                   # Model name (if null, uses default)
   temperature: 0.7                    # Temperature for generation
   top_p: 0.95                         # Top-p sampling parameter
   max_tokens: 4096                    # Maximum tokens to generate
-  proposal_score_threshold: 2.0       # Only generate programs if proposal score >= threshold
-  api_key: sk-2c3f1f58031b4b86afdb6a8192ea02e2                       # API key for API models
-  base_url:  https://api.deepseek.com                     # Base URL for API models
+  proposal_score_threshold: 5.5       # Only generate programs if proposal score >= threshold
+  # api_key: sk-2c3f1f58031b4b86afdb6a8192ea02e2                       # API key for API models
+  # base_url:  https://api.deepseek.com                     # Base URL for API models
   jsonl_file: "results/reward_results.jsonl"         # JSONL file for results
   max_retries: 50                     # Maximum number of retries
   retry_delay: 5                      # Delay between retries in seconds

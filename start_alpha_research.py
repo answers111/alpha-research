@@ -13,7 +13,7 @@ from evolve_agent import EvolveAgent
 from evolve_agent.config import load_config, RewardModelConfig
 from evolve_agent.reward_model import RewardModel
 from evolve_agent.llm.ensemble import LLMEnsemble
-
+os.environ['CUDA_VISIBLE_DEVICES'] = '7'
 
 class AlphaResearchStarter:
 
@@ -345,23 +345,23 @@ def evaluate(program_path):
         proposal_path, program_path = self.save_files(proposal, program, score)
         
         # Step 5: Start evolution
-        print("\n🧬 Step 5: Starting evolution...")
-        try:
-            best_program = await self.start_evolution(proposal_path, program_path)
+        # print("\n🧬 Step 5: Starting evolution...")
+        # try:
+        #     best_program = await self.start_evolution(proposal_path, program_path)
             
-            if best_program:
-                print("\n🎉 Alpha Research completed successfully!")
-                print(f"Best program ID: {best_program.id}")
-                print(f"Final metrics: {best_program.metrics}")
-            else:
-                print("\n⚠️ Evolution completed but no improvement found")
+        #     if best_program:
+        #         print("\n🎉 Alpha Research completed successfully!")
+        #         print(f"Best program ID: {best_program.id}")
+        #         print(f"Final metrics: {best_program.metrics}")
+        #     else:
+        #         print("\n⚠️ Evolution completed but no improvement found")
                 
-            return best_program
+        #     return best_program
             
-        except Exception as e:
-            print(f"\n❌ Evolution failed: {e}")
-            print("Initial files have been saved and can be used manually.")
-            return None
+        # except Exception as e:
+        #     print(f"\n❌ Evolution failed: {e}")
+        #     print("Initial files have been saved and can be used manually.")
+        #     return None
 
 
 async def main():
@@ -369,7 +369,8 @@ async def main():
     
     # Brief research ideas
     simple_ideas = [
-        "挂谷猜想",
+        """Strassen's 1969 Algorithm multiply 4x4 complex-valued matrices using 49 scalar multiplications. 
+Your goal is to minimize and return the number. Include a counter to return the multiplications number.""",
     ]
     
     # Select an idea or let user input
