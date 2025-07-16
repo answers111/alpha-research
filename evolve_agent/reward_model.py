@@ -282,12 +282,12 @@ if __name__ == "__main__":
         # Test with API model (requires valid API key and base URL)
         try:
             # Replace with your actual API key and base URL
-            api_key = "sk-2c3f1f58031b4b86afdb6a8192ea02e2"
-            base_url = "https://api.deepseek.com"
+            api_key = "sk-QooBWhqUg9xsdjHIxs1G0sVUIDB3h7QEIecPHK6WDNpNPlz2"
+            base_url = "https://api.moonshot.cn/v1"
 
             config = RewardModelConfig(
                 model_type="api",
-                model_name="deepseek-chat",
+                model_name="kimi-k2-0711-preview",
                 api_key=api_key,
                 base_url=base_url,
                 jsonl_file="api_results.jsonl",

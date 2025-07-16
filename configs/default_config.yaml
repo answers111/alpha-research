@@ -19,7 +19,7 @@ llm:
   # Models for evolution
   models:
     # List of available models with their weights
-    - name: "deepseek-chat"
+    - name: "kimi-k2-0711-preview"
       weight: 1.0
     # - name: "gemini-2.0-flash"
     #   weight: 0
@@ -33,8 +33,8 @@ llm:
   #     weight: 0.2
 
   # API configuration
-  api_base: "https://api.deepseek.com"  # Base URL for API (change for non-OpenAI models)
-  api_key: "sk-2c3f1f58031b4b86afdb6a8192ea02e2"                       # API key (defaults to OPENAI_API_KEY env variable)
+  api_base: "https://api.moonshot.cn/v1"  # Base URL for API (change for non-OpenAI models)
+  api_key: "sk-QooBWhqUg9xsdjHIxs1G0sVUIDB3h7QEIecPHK6WDNpNPlz2"                       # API key (defaults to OPENAI_API_KEY env variable)
 
   # Generation parameters
   temperature: 0.7                    # Temperature for generation (higher = more creative)
@@ -121,14 +121,14 @@ evaluator:
 
 # Reward model configuration
 rewardmodel:
-  model_type: vllm                  # Model type (vllm or api)
-  model_name: /data/zhuotaodeng/yzj/alpha_research_model/qwen25_grm_iclr_boxed/checkpoint-180                   # Model name (if null, uses default)
+  model_type: api                  # Model type (vllm or api)
+  model_name: kimi-k2-0711-preview                   # Model name (if null, uses default)
   temperature: 0.7                    # Temperature for generation
   top_p: 0.95                         # Top-p sampling parameter
   max_tokens: 4096                    # Maximum tokens to generate
   proposal_score_threshold: 5.5       # Only generate programs if proposal score >= threshold
-  # api_key: sk-2c3f1f58031b4b86afdb6a8192ea02e2                       # API key for API models
-  # base_url:  https://api.deepseek.com                     # Base URL for API models
+  api_key: sk-QooBWhqUg9xsdjHIxs1G0sVUIDB3h7QEIecPHK6WDNpNPlz2                       # API key for API models
+  base_url:  https://api.moonshot.cn/v1                     # Base URL for API models
   jsonl_file: "results/reward_results.jsonl"         # JSONL file for results
   max_retries: 50                     # Maximum number of retries
   retry_delay: 5                      # Delay between retries in seconds

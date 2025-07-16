@@ -17,9 +17,9 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '7'
 
 class AlphaResearchStarter:
 
-    def __init__(self, config_path: str = "configs/default_config.yaml"):
+    def __init__(self, config_path: str = "configs/default_config.yaml", output_dir: str = "results"):
         self.config = load_config(config_path)
-        self.results_dir = "results"
+        self.results_dir = output_dir
         os.makedirs(self.results_dir, exist_ok=True)
         
         # Initialize reward model
@@ -289,7 +289,8 @@ def evaluate(program_path):
             initial_program_path=program_path,
             initial_proposal_path=proposal_path,
             evaluation_file=os.path.join(self.results_dir, "evaluator.py"),
-            config=self.config
+            config=self.config,
+            output_dir=os.path.join(self.results_dir, "evolve_agent_output")
         )
         
         print("Starting evolution process...")
@@ -378,8 +379,8 @@ Your goal is to minimize and return the number. Include a counter to return the 
     
     print(f"Selected research idea: {selected_idea}")
     
-    # Create starter
-    starter = AlphaResearchStarter()
+    # Create starter with default results directory
+    starter = AlphaResearchStarter(output_dir="results")
     
     # Run complete workflow
     result = await starter.run_complete_workflow(selected_idea)

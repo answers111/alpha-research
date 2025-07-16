@@ -11,10 +11,11 @@ os.environ['CUDA_VISIBLE_DEVICES'] = '6'
 # )
 
 evolve_agent = EvolveAgent(
-    initial_program_path="results/initial_program.py",
-    evaluation_file="results/evaluator.py",
-    initial_proposal_path="results/initial_proposal.txt",
-    config_path="configs/oai_config.yaml"
+    initial_program_path="kissing_number/initial_program.py",
+    evaluation_file="kissing_number/evaluator.py",
+    initial_proposal_path="kissing_number/initial_proposal.txt",
+    config_path="configs/default_config.yaml",
+    output_dir="kissing_number/evolve_agent_output"
 )
 
 async def main():
