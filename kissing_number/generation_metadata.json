@@ -1,0 +1,10 @@
+{
+  "proposal_score": 8.5,
+  "timestamp": 1752551894.111988,
+  "problem": "11-dimensional kissing number",
+  "files": {
+    "proposal": "kissing_number/initial_proposal.txt",
+    "program": "kissing_number/initial_program.py",
+    "evaluator": "kissing_number/evaluator.py"
+  }
+} 

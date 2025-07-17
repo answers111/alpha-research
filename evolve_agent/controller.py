@@ -463,6 +463,19 @@ Return the proposal as a clear, concise research abstract."""
             
 
             # Step 4: Build prompt for program generation using all information
+            # Extract kissing number specific metrics if available
+            kissing_number_params = {}
+            if parent.metrics:
+                sphere_count = parent.metrics.get('num_spheres', parent.metrics.get('sphere_count', 0))
+                constraint_satisfaction = parent.metrics.get('constraint_satisfaction', parent.metrics.get('validity_rate', 'N/A'))
+                if isinstance(constraint_satisfaction, float):
+                    constraint_satisfaction = f"{constraint_satisfaction:.1%}"
+                
+                kissing_number_params = {
+                    'sphere_count': sphere_count,
+                    'constraint_satisfaction': constraint_satisfaction,
+                }
+            
             prompt = self.prompt_sampler.build_prompt(
                 current_program=parent.code,
                 parent_program=parent.code,
@@ -476,6 +489,7 @@ Return the proposal as a clear, concise research abstract."""
                 current_proposal=new_proposal,
                 parent_proposal=parent.proposal,
                 proposal_score=new_proposal_score,
+                **kissing_number_params,  # Add kissing number specific parameters
             )
 
             # Generate code modification

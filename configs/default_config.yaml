@@ -3,8 +3,8 @@
 # You can use this as a template for your own configuration
 
 # General settings
-max_iterations: 1000                  # Maximum number of evolution iterations
-checkpoint_interval: 50               # Save checkpoints every N iterations
+max_iterations: 20                  # Maximum number of evolution iterations
+checkpoint_interval: 5               # Save checkpoints every N iterations
 log_level: "INFO"                     # Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
 log_dir: null                         # Custom directory for logs (default: output_dir/logs)
 random_seed: null                     # Random seed for reproducibility (null = random)
@@ -19,7 +19,7 @@ llm:
   # Models for evolution
   models:
     # List of available models with their weights
-    - name: "kimi-k2-0711-preview"
+    - name: "gemini-2.5-pro"
       weight: 1.0
     # - name: "gemini-2.0-flash"
     #   weight: 0
@@ -33,8 +33,8 @@ llm:
   #     weight: 0.2
 
   # API configuration
-  api_base: "https://api.moonshot.cn/v1"  # Base URL for API (change for non-OpenAI models)
-  api_key: "sk-QooBWhqUg9xsdjHIxs1G0sVUIDB3h7QEIecPHK6WDNpNPlz2"                       # API key (defaults to OPENAI_API_KEY env variable)
+  api_base: "https://generativelanguage.googleapis.com/v1beta/openai/"  # Base URL for API (change for non-OpenAI models)
+  api_key: "AIzaSyAEt6TdUzriwtR2lOmsqu8C5JiBl5NXrwo"                       # API key (defaults to OPENAI_API_KEY env variable)
 
   # Generation parameters
   temperature: 0.7                    # Temperature for generation (higher = more creative)
@@ -132,3 +132,4 @@ rewardmodel:
   jsonl_file: "results/reward_results.jsonl"         # JSONL file for results
   max_retries: 50                     # Maximum number of retries
   retry_delay: 5                      # Delay between retries in seconds
+

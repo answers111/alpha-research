@@ -82,8 +82,16 @@ class PromptSampler:
             # Use explicitly provided template key
             user_template_key = template_key
         elif self.user_template_override:
-            # Use the override set with set_templates
-            user_template_key = self.user_template_override
+            # Use the override set with set_templates, but handle full rewrite case
+            if allow_full_rewrite and self.user_template_override.startswith("kissing_number_"):
+                # For kissing number templates, switch to full rewrite variant if available
+                full_rewrite_template = self.user_template_override.replace("_diff_user", "_full_rewrite")
+                if full_rewrite_template in self.template_manager.templates:
+                    user_template_key = full_rewrite_template
+                else:
+                    user_template_key = self.user_template_override
+            else:
+                user_template_key = self.user_template_override
         else:
             # Default behavior
             user_template_key = "full_rewrite_user" if allow_full_rewrite else "diff_user"
