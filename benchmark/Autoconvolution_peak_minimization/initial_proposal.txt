@@ -1,0 +1,34 @@
+Autoconvolution peak minimization on a unit interval (standard normalization)
+
+Problem definition. Let  
+
+$$
+\mathcal{F}=\Big\{\,f\in L^{1}\!\big([-{\tfrac12},{\tfrac12}]\big):\ f\ge 0,\ \int_{-1/2}^{1/2} f(x)\,dx=1\,\Big\}
+$$
+
+$$
+\qquad
+(f*f)(t)=\int_{\mathbb{R}} f(x)\,f(t-x)\,dx .
+$$
+
+We seek to minimize the peak value of the autoconvolution:
+$$
+\mu_\infty \;=\; \inf_{f\in\mathcal{F}} \ \|f*f\|_\infty .
+$$
+
+Constraints. Nonnegative density, unit mass (L1=1), support length 1 (here taken as [-1/2, 1/2]). In the implementation, f is represented by nonnegative step heights on a uniform grid and normalized to unit integral.
+
+Optimization goal. Minimize \(\mu_\infty = \max_t (f*f)(t)\). Smaller is better.
+
+Best-known human results. In this standard setup, the best currently published bounds are
+$$
+\boxed{0.64 \ \le\ \mu_\infty \ \le\ 0.75496}\,.
+$$
+The upper bound traces to work of Matolcsi–Vinuesa (after normalizing support length to 1), and the lower bound to Cloninger–Steinerberger.
+
+Algorithm goal. Create an algorithm that constructs feasible densities with progressively smaller \(\mu_\infty\). This baseline program generates simple analytical candidates (box, triangle, cosine-squared, Gaussian) on a uniform grid, normalizes to unit mass, and computes autoconvolution via FFT to measure \(\mu_\infty\). It serves as a starting point for more advanced search/optimization methods.
+
+References.
+- E. P. White, *An optimal $L^2$ autoconvolution inequality*, Canadian Mathematical Bulletin (2024).
+- M. Matolcsi and C. Vinuesa, *Improved bounds on the supremum of autoconvolutions*, J. Math. Anal. Appl. 372 (2010), 439–447.
+- A. Cloninger and S. Steinerberger, *On suprema of autoconvolutions with an application to Sidon sets*, Proc. Amer. Math. Soc. 145 (2017), 3191–3200.

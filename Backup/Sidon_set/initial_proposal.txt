@@ -1,0 +1,12 @@
+Sidon set in {1,…,K}: maximize size under unique-sum constraint
+
+Problem definition. For a subset A ⊆ {1,…,K}, require that all pairwise sums a+b (with a≤b, a,b∈A) are distinct. Such an A is a Sidon set (or B2-set). We aim to construct A with maximum possible size.
+
+Constraints. Finite ground set {1,…,K}; indicator vector must be 0/1; validity requires no duplicate sums among all a+b (a≤b) pairs.
+
+Optimization goal. Maximize |A| subject to validity. Evaluator returns |A| if valid; otherwise −1.
+
+Best-known results. Asymptotically, the maximum size is (1+o(1))·√K. For concrete K, greedy and combinatorial constructions typically achieve ≈√K; exact optima are known only for small K.
+
+Algorithm goal. Create algorithms that build large valid Sidon sets. This baseline uses multi-restart greedy with order shaking and returns an indicator vector of A for evaluation.
+
