@@ -5,7 +5,9 @@ Problem definition. Choose coefficients c_k ∈ {±1} for P(z)=∑_{k=0}^{n−1}
 
 Constraints. Coefficients are ±1. Metric is supnorm estimated by FFT sampling on an equally spaced grid; denser grid → tighter upper bound.
 
-Optimization goal. Minimize supnorm. The evaluator returns a single scalar: supnorm if valid, else −1.0.
+Optimization goal. Minimize supnorm. The evaluator returns a single scalar: 1/supnorm if valid, else −1.0.
+
+Notes on bounds. For the Rudin–Shapiro construction of length n, a classical identity gives supnorm ≤ √(2n) (so the absolute constant C = √2 outside the √n). For the benchmark default n = 512, this yields supnorm ≤ √(1024) = 32 and thus score 1/32 = 0.03125.
 
 Best-known results (human). The optimal value is Θ(√n). Upper bounds: Rudin–Shapiro and variants achieve ‖P‖_∞ ≤ C√n (C≈2 in practice). Lower bounds: ‖P‖_∞ ≥ c√n for an absolute c>0. Practical searches aim to reduce the constant for fixed n.
 

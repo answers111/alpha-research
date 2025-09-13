@@ -1,19 +1,17 @@
-Heilbronn in the unit square: verify asymptotic upper bound (n = 30)
+Heilbronn in the unit square: maximize smallest triangle area (n = 16)
 
-Problem redefinition. We treat Heilbronn’s problem at n = 30 as an upper-bound verification task. Given n points in [0,1]^2, define Δ(n) as the minimum triangle area over all triples. Recent results give an asymptotic upper bound
-  Δ(n) = O(n^{-8/7 - 1/2000}).
+Problem definition. Given n = 16 points in [0,1]^2, define Δ(P) as the minimum triangle area over all triples from configuration P. The task is to maximize Δ(P).
 
-Metric (larger is better). For a candidate configuration P with min_area = Δ_P, we compute
-  scaled_min_area = n^{8/7 + 1/2000} * Δ_P,
-  score = 1 / scaled_min_area.
-A larger score indicates a smaller scaled_min_area, i.e., better agreement with (or improvement toward) the asymptotic upper bound.
+Metric (larger is better). Use the raw minimum triangle area:
+  score = min_area.
+For reference we also report scaled_min_area = n^{8/7 + 1/2000} * min_area (informational only).
 
 Constraints. Points must lie in [0,1]^2.
 
-Evaluator. The evaluator computes Δ_P, then returns a dict including:
-  {"score", "scaled_min_area", "min_area", "n"},
-with score as the main metric (larger is better).
+Evaluator. The evaluator returns {"score" (= min_area), "scaled_min_area", "min_area", "n"}.
 
-Baseline. We use a hexagonal-lattice-inspired construction with light jitter to generate n = 30 points.
+Baseline. We use a hexagonal-lattice-inspired construction with light jitter to generate n = 16 points.
 
-Goal. Construct point sets that minimize scaled_min_area (equivalently, maximize score), thereby pushing toward the asymptotic upper bound regime for n = 30.
+Human best. For n = 16, the best known and proven optimal smallest triangle area is A = 7/341 ≈ 0.020526... (see Erich Friedman’s compilation [https://erich-friedman.github.io/packing/heilbronn/]).
+
+Goal. Construct point sets that maximize min_area (and thus also increase scaled_min_area accordingly) for n = 16.

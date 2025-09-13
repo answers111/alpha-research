@@ -13,41 +13,40 @@ def _triangle_area(a, b, c) -> float:
 
 def evaluate_min_triangle_area(points: np.ndarray) -> Dict[str, float]:
     """
-    Compute the minimum triangle area for a given set of 2D points and
-    produce an upper-bound verification score.
-
-    New metric (upper-bound verification):
-      scaled_min_area = n^(8/7 + 1/2000) * min_area
-      score = 1 / scaled_min_area   # larger is better
+    Compute the minimum triangle area for 2D points.
+    Metrics:
+      - min_area: raw smallest triangle area (larger is better)
+      - scaled_min_area: n^(8/7 + 1/2000) * min_area (informational)
+      - score: equals min_area (larger is better)
     """
-    pts = np.asarray(points, dtype=float).reshape(-1, 2)
+    pts = np.asarray(points, dtype=float)
+    if pts.ndim != 2 or pts.shape[1] != 2:
+        return {"valid": 0.0, "min_area": 0.0, "n": 0.0, "scaled_min_area": 0.0, "score": 0.0}
+
     n = len(pts)
     if n < 3:
-        return {
-            "valid": 1.0,
-            "min_area": 0.0,
-            "n": float(n),
-            "scaled_min_area": float("inf"),
-            "score": 0.0,
-        }
+        return {"valid": 0.0, "min_area": 0.0, "n": float(n), "scaled_min_area": 0.0, "score": 0.0}
+
     min_area = float("inf")
     for i, j, k in combinations(range(n), 3):
         area = _triangle_area(pts[i], pts[j], pts[k])
         if area < min_area:
             min_area = area
-    # Upper-bound verification scaling
+            if min_area <= 1e-18:  # 早停
+                break
+
     exponent = (8.0/7.0) + (1.0/2000.0)
     scaled_min_area = (n ** exponent) * float(min_area)
-    score = 0.0
-    if scaled_min_area > 0 and np.isfinite(scaled_min_area):
-        score = 1.0 / scaled_min_area
+    score = float(min_area) if np.isfinite(min_area) else 0.0
+
     return {
         "valid": 1.0,
         "min_area": float(min_area),
         "n": float(n),
         "scaled_min_area": float(scaled_min_area),
-        "score": float(score),
+        "score": score,
     }
+
 
 
 def evaluate(program_path: str):

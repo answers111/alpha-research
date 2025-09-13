@@ -49,7 +49,7 @@ def farthest_point_greedy(n, seed=None, rng=np.random.default_rng(0)):
     return P
 
 def main():
-    n = 12
+    n = 30
     seed = seed_platonic(n)
     pts = farthest_point_greedy(n, seed=seed, rng=np.random.default_rng(42))
     print(f"n={n}, points={len(pts)}")
@@ -57,6 +57,9 @@ def main():
 
 if __name__ == "__main__":
     points = main()
+    # 保存为 npy 文件
+    np.save("points.npy", points)
+    print("已保存 points.npy")
 
 # Ensure compatibility with evaluators that expect a global variable
 try:

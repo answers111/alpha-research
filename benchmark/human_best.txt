@@ -8,24 +8,26 @@ Note: Some benchmarks depend on problem parameters (n, d, etc.). Where the bench
 - Human best: K(11) ≥ 592.
 - Reference: M. Ganzhinov, "Kissing number in dimension 11 is at least 592" (PSU(4,2) construction), arXiv preprint, 2024.
 - Larger-is-better human best: 592.0
+- cite：https://arxiv.org/abs/2207.08266
 
 2) spherical_code
 - Objective: On S^{d-1} (unit sphere), maximize the minimal pairwise angle for n points.
-- Benchmark default: n = 12 on S^2 (per `initial_program.py`).
-- Human best: For n = 12 on S^2, the icosahedron is optimal; minimal angle = arccos(1/√5) ≈ 63.4349488°.
-- References: 
-  - H. Schütte and B. L. van der Waerden, "Das Problem der dreizehn Kugeln," Math. Ann. 125 (1953), 325–334.
-  - L. Fejes Tóth, Regular Figures, 1964. See also J. H. Conway and N. J. A. Sloane, Sphere Packings, Lattices and Groups.
-- Larger-is-better human best: ≈ 1.107148717 radians (≈ 63.4349488°)
-
-3) heilbronn_in_the_unit_square (upper-bound verification)
-- Objective: Verify the asymptotic upper bound Δ(n) = O(n^{-8/7 - 1/2000}).
-- Metric (larger is better): score = 1 / (n^{8/7 + 1/2000} * min_area).
-- Benchmark default: n = 30.
+- Benchmark default: n = 30 on S^2 (per `initial_program.py`).
+- Human best (for default n=30): Best-known numerical minimal angle ≈ 0.673646755169... radians (unproven optimal); see Sloane's Tables of Spherical Codes.
 - References:
-  - J. Komlós, J. Pintz, E. Szemerédi, "On Heilbronn's triangle problem," J. London Math. Soc. (2) 24 (1981), 385–396.
-  - Follow-up literature and surveys summarized by T. Tao.
-- Example baseline (n=30): score baseline ≈ 20.0 (tunable; depends on construction quality).
+  - N. J. A. Sloane, "Tables of Spherical Codes" (online tables; best-known values, many unproved for general n). [https://neilsloane.com/packings/]
+  - For comparison: when n = 12, the icosahedron is optimal with minimal angle = arccos(1/√5) ≈ 1.107148717 radians (≈ 63.4349488°) (classical result: Schütte–van der Waerden; Fejes Tóth).
+- Larger-is-better human best (n=30): ≈ 0.673646755169 radians
+- cite: https://neilsloane.com/packings/
+
+3) heilbronn_in_the_unit_square (n = 16)
+- Objective: Place n points in the unit square to maximize the smallest triangle area.
+- Metric (larger is better): min_area (raw smallest triangle area).
+- Benchmark default: n = 16.
+- Human best (status): A = 7/341 ≈ 0.020526... is the best-known construction for n=16; to our knowledge, global optimality is not proved (conjectured best-known value in tables).
+- References:
+  - Erich Friedman's Heilbronn Problem page (n=16 entry; tables list best-known configurations, not general proofs of optimality). [https://erich-friedman.github.io/packing/heilbronn/]
+- cite: https://erich-friedman.github.io/packing/heilbronn/
 
 4) littlewood_polynomials
 - Objective: For ±1 coefficients c_k, minimize sup_{t} |∑ c_k e^{ikt}| on the unit circle (sup-norm). For degree n, the best growth is known to be on the order of √n.
@@ -34,6 +36,9 @@ Note: Some benchmarks depend on problem parameters (n, d, etc.). Where the bench
   - P. Borwein and M. Mossinghoff, surveys on Littlewood polynomials (e.g., Experimental Mathematics 2008; related 2002–2010 papers).
   - J.-P. Kahane, Some Random Series of Functions (re: random ±1 coefficients and bounds).
 - Larger-is-better metric: 1 / supnorm (grows like ≈ 1 / (C √n)); numeric value depends on n.
+  - For n = 512 (benchmark default): A Rudin–Shapiro construction yields supnorm ≤ √(2n) = 32 (with √n ≈ 22.627, √2 ≈ 1.414), hence the benchmark score 1/supnorm = 1/32 = 0.03125.
+  - Tighter constant for Rudin–Shapiro: The classical identity implies C = √2, i.e., supnorm ≤ √(2n) for length-n Rudin–Shapiro polynomials (tighter than the looser bound 2√n sometimes quoted).
+- cite: https://www.memphis.edu/msci/people/pbalistr/shapiro.pdf
 
 5) riesz_energy
 - Objective: On [0,1], minimize E_s(x_1,…,x_n) = ∑_{i<j} 1/|x_i - x_j|^s; benchmark uses s = 1.
@@ -42,6 +47,7 @@ Note: Some benchmarks depend on problem parameters (n, d, etc.). Where the bench
   - D. P. Hardin and E. B. Saff (eds.), Discrete Energy on Rectifiable Sets, Springer, 2019.
   - A. B. J. Kuijlaars and E. B. Saff, "Asymptotics for minimal discrete energy on the sphere," Trans. AMS 350 (1998) (general techniques; see also 1D discussions in the monograph above).
 - Larger-is-better metric: 1 / energy; for equally spaced n points incl. endpoints, 1 / E = 1 / ((n-1)(n H_{n-1} − (n-1))).
+- cite: https://www.math.vanderbilt.edu/saffeb/texts/261.pdf
 
 6) sum_vs_difference_set
 - Objective: Maximize |A+B| / |A−B| over finite sets A,B (discrete indicator formulation in benchmark). This connects to MSTD (more sums than differences) phenomena.
@@ -50,6 +56,7 @@ Note: Some benchmarks depend on problem parameters (n, d, etc.). Where the bench
   - M. B. Nathanson, "Sets with more sums than differences," Integers 7 (2007), #A5.
   - I. Z. Ruzsa, Sumsets and structure (various surveys in additive combinatorics).
 - Larger-is-better metric: |A+B| / |A−B| (no conversion).
+- cite: https://arxiv.org/abs/math/0608148
 
 7) packing_circles
 - Objective: In the unit square, place n disjoint circles to maximize total sum of radii (benchmark’s objective). Note: This differs from the classical equal-radius packing problem.
@@ -70,6 +77,7 @@ Note: Some benchmarks depend on problem parameters (n, d, etc.). Where the bench
 - Human best (general): The exact optimum constant is open; best-known rigorous bounds are close to 1.5 (upper bounds from explicit constructions, lower bounds from analytic inequalities). Precise record values depend on smoothness/support constraints.
 - References: Surveys on autoconvolution inequalities (e.g., works following Erdős–Rényi type convolution problems; see also additive combinatorics notes and numerical studies in approximation theory).
 - Larger-is-better metric: 1 / μ_∞; indicative ≥ ≈ 1/1.5 ≈ 0.6667 given current upper bounds.
+- cite: https://arxiv.org/pdf/2210.16437?utm_source=chatgpt.com
 
 10) third_autocorrelation_inequality
 - Objective: Improve bounds for a third-order autocorrelation constant C_3 (benchmark computes an upper bound C_upper_bound and reports its reciprocal).
