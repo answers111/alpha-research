@@ -6,7 +6,7 @@ We study the ratio R(A,B) = |S| / |D|.
 
 Constraints. Finite ground set {0,…,N−1}; indicator vectors are 0/1; invalid when A or B is empty, or |D|=0.
 
-Optimization goal. Maximize R(A,B) (sum-dominant) or minimize R(A,B) (difference-dominant) depending on the benchmark setting. The evaluator returns a single scalar: R if valid, else −1.
+Optimization goal. In this benchmark we target R(A,B) close to 1. The evaluator returns a higher-is-better score defined as score = 1 / (1 + |R − 1|) if valid, else −1.
 
 Best-known results. Classical “MSTD” (more sums than differences) sets exist even with A=B (e.g., Conway’s example). For small N, handcrafted or searched sets achieve R>1; for larger N, structured constructions and heuristic search continue to produce sum-dominant examples. Difference-dominant pairs also exist via symmetric/clustered designs.
 

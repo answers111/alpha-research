@@ -10,8 +10,8 @@ Constraints. Points must lie in [0,1]^2.
 
 Evaluator. The evaluator returns {"score" (= min_area), "scaled_min_area", "min_area", "n"}.
 
-Baseline. We use a hexagonal-lattice-inspired construction with light jitter to generate n = 16 points.
+Baseline. The initial program seeds from hexagonal/grid/Poisson-disk variants and refines to increase the minimum triangle area for n = 16.
 
-Human best. For n = 16, the best known and proven optimal smallest triangle area is A = 7/341 ≈ 0.020526... (see Erich Friedman’s compilation [https://erich-friedman.github.io/packing/heilbronn/]).
+Human best. For n = 16, the best-known record is A = 7/341 ≈ 0.020526...，见 Erich Friedman 的汇总 [https://erich-friedman.github.io/packing/heilbronn/]。全局最优性未被普遍证明。
 
 Goal. Construct point sets that maximize min_area (and thus also increase scaled_min_area accordingly) for n = 16.

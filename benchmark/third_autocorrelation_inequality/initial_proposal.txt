@@ -1,1 +1,9 @@
-This program presents a novel approach to finding an improved upper bound for the C3-norm of a function, a quantity relevant to signal processing and harmonic analysis. The problem is framed as an optimization task, and a genetic algorithm is employed to solve it. The core of the algorithm involves evolving a sequence of function heights (represented as a NumPy array) that define a piecewise-constant function. The fitness of each function sequence is determined by its C3-norm value, with the goal of maximizing this value. The genetic algorithm utilizes standard evolutionary operators: tournament selection to choose parents, single-point crossover to exchange genetic information, and Gaussian mutation to introduce random variations. The function's C3-norm is calculated by finding the maximum value of the function's self-convolution, normalized by the square of its L1-norm. This search process aims to discover a specific function configuration that yields a higher C3-norm than previously known examples, thereby establishing a new upper bound for the class of functions under consideration.
+Third-order autocorrelation inequality (C3 upper bound)
+
+Problem. For piecewise-constant nonnegative functions on a fixed support with unit mass, we evaluate an upper bound C_upper_bound derived from the maximum of the autoconvolution (normalized by squared L1 mass). The benchmark score is
+  score = 1 / C_upper_bound
+so larger score indicates a smaller upper bound and hence a better result.
+
+Evaluator. The evaluator calls find_better_c3_upper_bound() from the target program to obtain step heights, computes the (normalized) autoconvolution maximum, and returns 1/C_upper_bound.
+
+Baseline algorithm. A simple genetic algorithm over height sequences (tournament selection, one-point crossover, Gaussian mutation) serves as the baseline search method.

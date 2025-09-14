@@ -1,0 +1,21 @@
+MSTD (More Sums Than Differences) Benchmark
+
+Objective
+- Classical MSTD (enforced): Given A ⊂ {0,1,...,N-1} represented by a 0/1 indicator array of length N,
+  maximize the ratio R = |A+A| / |A−A|.
+- Score: score = R (higher is better).
+- Comparisons should be made under the same N.
+
+Default setup in this benchmark
+- N = 30.
+- Evaluator enforces A=B (classical setting). If a pair (A,B) is provided, B is ignored and A is used.
+
+Known best for N = 30 (baseline)
+- Conway’s MSTD set A = {0,2,3,4,7,11,12,14} yields R ≈ 1.04.
+- This is the baseline included in initial_program.py.
+- Better ratios may exist for N=30; pushing R upwards is the optimization goal.
+
+Notes
+- R>1 is rare and indicates sum-dominance.
+- The ratio depends strongly on N; do not compare ratios across different N without a normalization scheme.
+- If cross-N comparison is necessary, consider reporting both R and N, or use log R as an auxiliary measure.

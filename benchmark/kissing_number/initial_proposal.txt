@@ -6,6 +6,6 @@ Constraints. Vectors must be unit length; for any distinct i ≠ j, ⟨v_i, v_j�
 
 Optimization goal. Maximize the number of vectors (kissing points). The evaluator verifies unit norms and the 0.5 cap, then reports the count and dimension.
 
-Best-known results (human). In 10D, there is a 510-point spherical code. In 11D, the current constructive lower bound is 592 and the best-known upper bound is 869.
+Best-known results (human). In 11D, the current constructive lower bound is 592 (Ganzhinov, PSU(4,2) construction). Upper bounds above 800 exist in the literature (exact best published bound depends on source); we focus on improving the constructive lower bound.
 
 Algorithm goal. Create an algorithm that constructs large valid sets under the above constraints. This program follows a PSU(4,2)-based construction (when ATLAS data are available) yielding 592 in 11D, and otherwise uses a robust randomized MIS-style fallback to produce large valid configurations. The program outputs sphere_centers (unit vectors) for evaluator verification.

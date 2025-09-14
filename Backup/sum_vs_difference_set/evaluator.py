@@ -48,7 +48,12 @@ def evaluate(program_path: str):
         ratio = evaluate_ratio(A, B)
         if ratio < 0:
             return {"error": -1.0}
-        return {"score": float(ratio)}
+        # Balance mode (closer to 1 is better), multiplicative symmetry:
+        # score = 1 / (1 + |log(R)|). This treats R and 1/R equally and
+        # is less sensitive to the absolute scale of R across different N.
+        log_ratio_abs = float(abs(np.log(max(ratio, EPS))))
+        score = 1.0 / (1.0 + log_ratio_abs)
+        return {"score": float(score), "ratio": float(ratio), "log_ratio_abs": log_ratio_abs}
     except Exception:
         return {"error": -1.0}
 

@@ -11,8 +11,8 @@ baselines = {
     "spherical_code_d3_n30": {"s_baseline": 0.6736467551690225, "higher_better": 1},
     "heilbronn_in_the_unit_square_n16": {"s_baseline": 7.0/341.0, "higher_better": 1},
     "littlewood_polynomials_n512": {"s_baseline": 0.03125, "higher_better": 1},
-    "riesz_energy_n20_s1": {"s_baseline": 0.001013, "higher_better": 1},
-    "sum_vs_difference_set_n30": {"s_baseline": 1.04, "higher_better": 1},
+    #"riesz_energy_n20_s1": {"s_baseline": 0.001013, "higher_better": 1},
+    "MSTD_n30": {"s_baseline": 1.04, "higher_better": 1},
     "autoconvolution_peak_minimization": {"s_baseline": 0.6667, "higher_better": 1}
 }
 
@@ -27,8 +27,8 @@ results = {
     "spherical_code_d3_n30": {"s_best": 0.6381359964781541, "round": 5000},
     "heilbronn_in_the_unit_square_n16": {"s_best": 0, "round": 5000},
     "littlewood_polynomials_n512": {"s_best": 0, "round": 5000},
-    "riesz_energy_n20_s1": {"s_best": 0, "round": 5000},
-    "sum_vs_difference_set_n30": {"s_best": 0, "round": 5000},
+    #"riesz_energy_n20_s1": {"s_best": 0, "round": 5000},
+    "MSTD_n30": {"s_best": 0, "round": 5000},
     "autoconvolution_peak_minimization": {"s_best": 0, "round": 5000}
 }
 

@@ -20,8 +20,12 @@ def evaluate_riesz_energy(points: np.ndarray, s: float = 1.0) -> Dict[str, float
         for j in range(i+1, n):
             d = abs(xi - xs[j])
             dmin = min(dmin, d)
-            energy += 1.0 / (d**s + EPS)
+            # 正确的夹断方式
+            if d < EPS:
+                d = EPS
+            energy += 1.0 / (d ** s)
     return {"valid": 1.0, "energy": float(energy), "min_spacing": float(dmin)}
+
 
 def evaluate(program_path: str = "riesz_energy/initial_program.py"):
     spec = importlib.util.spec_from_file_location("program", program_path)
@@ -43,9 +47,14 @@ def evaluate(program_path: str = "riesz_energy/initial_program.py"):
     result = evaluate_riesz_energy(pts, s=1.0)
     if result.get("valid", 0.0) != 1.0:
         return {"error": -1.0}
-    energy = float(result["energy"])
-    if energy > 0 and np.isfinite(energy):
-        return {"energy": 1.0 / energy}
+    E = float(result["energy"])
+    if E > 0 and np.isfinite(E):
+        return {
+            "energy": E,                 # 真·能量（越小越好）
+            "score": 1.0 / E,            # 倒数分数（越大越好）
+            "n": len(pts),
+            "min_spacing": result["min_spacing"]
+        }
     return {"error": -1.0}
 
 

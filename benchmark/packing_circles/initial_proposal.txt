@@ -1,7 +1,13 @@
 Packing circles inside a unit square to maximize sum of radii
-Given a positive integer  n , the problem is to pack  n  disjoint circles inside a unit square so as to maximize the sum of their radii. 
+Given an integer n, place n disjoint circles in [0,1]^2 to maximize the total sum of radii.
 
-For  n=26 , the SOTA was  2.634.
-For  n=32 , the SOTA was  2.936.
+Objective and metric
+- Score = total sum of radii (larger is better).
+- Validity: circles must be pairwise disjoint and fully inside the unit square.
 
-Your goal is to create an algorithm to maximize sum of radii and reduce blank space.
+Notes on records
+- This variable-radius “sum of radii” objective is not the classical equal-radius packing; authoritative SOTA tables are not standardized.
+- Values reported in code or experiments should be treated as benchmarks rather than literature SOTA.
+
+Goal
+- Create algorithms that increase the total sum of radii for n ∈ {26, 32} under the above validity constraints.
