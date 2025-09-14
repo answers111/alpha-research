@@ -23,38 +23,30 @@ def evaluate_riesz_energy(points: np.ndarray, s: float = 1.0) -> Dict[str, float
             energy += 1.0 / (d**s + EPS)
     return {"valid": 1.0, "energy": float(energy), "min_spacing": float(dmin)}
 
-def evaluate(program_path: str):
-    try:
-        spec = importlib.util.spec_from_file_location("program", program_path)
-        program = importlib.util.module_from_spec(spec)
-        sys.modules["program"] = program
-        spec.loader.exec_module(program)
+def evaluate(program_path: str = "riesz_energy/initial_program.py"):
+    spec = importlib.util.spec_from_file_location("program", program_path)
+    program = importlib.util.module_from_spec(spec)
+    sys.modules["program"] = program
+    spec.loader.exec_module(program)
 
-        pts = None
-        if hasattr(program, 'xs'):
+    pts = None
+    if hasattr(program, 'xs'):
+        pts = program.xs
+    elif hasattr(program, 'main'):
+        res = program.main()
+        if isinstance(res, np.ndarray):
+            pts = res
+        elif hasattr(program, 'xs'):
             pts = program.xs
-        elif hasattr(program, 'main'):
-            res = program.main()
-            if isinstance(res, np.ndarray):
-                pts = res
-            elif hasattr(program, 'xs'):
-                pts = program.xs
-        if pts is None:
-            return {"error": -1.0}
-        result = evaluate_riesz_energy(pts, s=1.0)
-        if result.get("valid", 0.0) != 1.0:
-            return {"error": -1.0}
-        energy = float(result["energy"])
-        if energy > 0 and np.isfinite(energy):
-            return {"score": 1.0 / energy}
+    if pts is None:
         return {"error": -1.0}
-    except Exception:
+    result = evaluate_riesz_energy(pts, s=1.0)
+    if result.get("valid", 0.0) != 1.0:
         return {"error": -1.0}
+    energy = float(result["energy"])
+    if energy > 0 and np.isfinite(energy):
+        return {"energy": 1.0 / energy}
+    return {"error": -1.0}
 
-if __name__ == "__main__":
-    try:
-        default_path = os.path.join(os.path.dirname(__file__), "initial_program.py")
-    except Exception:
-        default_path = "initial_program.py"
-    target = sys.argv[1] if len(sys.argv) > 1 else default_path
-    print(json.dumps(evaluate(target)))
+
+print(evaluate())

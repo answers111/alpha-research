@@ -64,11 +64,3 @@ def evaluate(program_path: str):
             return {"error": -1.0}
     except Exception as e:
         return {"error": -1.0}
-
-if __name__ == "__main__":
-    try:
-        default_path = os.path.join(os.path.dirname(__file__), "initial_program.py")
-    except Exception:
-        default_path = "initial_program.py"
-    target = sys.argv[1] if len(sys.argv) > 1 else default_path
-    print(json.dumps(evaluate(target), ensure_ascii=False, indent=2))

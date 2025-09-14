@@ -78,12 +78,3 @@ def main():
     print(f"Generated {kind} candidate with K={K}, mu_inf={result['mu_inf']:.6f}")
     
     return step_heights
-
-if __name__ == "__main__":
-    step_heights = main()
-
-# Ensure compatibility with evaluators that expect a global variable
-try:
-    step_heights  # type: ignore[name-defined]
-except NameError:
-    step_heights = main()

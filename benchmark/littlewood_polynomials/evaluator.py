@@ -45,7 +45,7 @@ def _read_coeffs_from_stdin():
     nums = re.findall(r"[-+]?\d+", joined)
     return np.asarray(list(map(int, nums)), dtype=int)
 
-def evaluate(program_path: str):
+def evaluate(program_path: str = "littlewood_polynomials/initial_program.py"):
     try:
         spec = importlib.util.spec_from_file_location("program", program_path)
         program = importlib.util.module_from_spec(spec)
@@ -76,10 +76,4 @@ def evaluate(program_path: str):
     except Exception:
         return {"error": -1.0}
 
-if __name__ == "__main__":
-    try:
-        default_path = os.path.join(os.path.dirname(__file__), "initial_program.py")
-    except Exception:
-        default_path = "initial_program.py"
-    target = sys.argv[1] if len(sys.argv) > 1 else default_path
-    print(json.dumps(evaluate(target)))
+print(evaluate())
