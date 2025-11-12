@@ -1,7 +1,5 @@
 <h1 align="center">
 <img src="./assets/logo.png" width="200" alt="AlphaReseach" />
-<br>
-Accelerating New Algorithm Discovery with Language Models 
 </h1>
 
 <p align="center">
